@@ -465,4 +465,27 @@ class HeartsMatch {
     }
     return winners;
   }
+
+  List<int> losingPlayers() {
+    if (!isMatchOver()) {
+      return [];
+    }
+    final minScore = scores.reduce(min);
+    List<int> losers = [];
+    for (int player = 0; player < rules.numPlayers; player++) {
+      if (scores[player] > minScore) {
+        // sort the losers low to high
+        for (int k = 0; k < losers.length; k++) {
+          if (scores[player] < scores[losers[k]]) {
+            losers.insert(k, player);
+            break;
+          }
+          else if (k == losers.length - 1) {
+            losers.add(player);
+          }
+        }
+      }
+    }
+    return losers;
+  }
 }

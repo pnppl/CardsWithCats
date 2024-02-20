@@ -554,8 +554,19 @@ class EndOfRoundDialog extends StatelessWidget {
 
     String matchOverMessage() {
       final p = match.winningPlayers();
+      final losers = match.losingPlayers();
       if (p.contains(0)) {
         return (p.length == 1) ? "You win!" : "You tied for the win!";
+      }
+      else if (losers.contains(0)) {
+        switch (losers.indexOf(0)) {
+          case 0:
+            return "You came in 2nd";
+          case 1:
+            return "You came in 3rd :/";
+          default:
+            return "You lose :(";
+        }
       }
       return "You lose :(";
     }

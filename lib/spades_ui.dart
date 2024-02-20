@@ -373,8 +373,16 @@ class _SpadesMatchState extends State<SpadesMatchDisplay> {
   }
 
   List<String> _currentRoundScoreMessages() {
+    int team(int p) { // 0 or 1
+      return p % round.rules.numTeams;
+    }
+
     int teamScore(int p) {
-      return round.initialScores[p % round.rules.numTeams];
+      return round.initialScores[team(p)];
+    }
+    
+    int teamBid(int p) {
+      return round.players[team(p)].bid! + round.players[team(p) + 2].bid!;
     }
 
     if (round.status == SpadesRoundStatus.bidding) {
@@ -383,7 +391,8 @@ class _SpadesMatchState extends State<SpadesMatchDisplay> {
     final messages = <String>[];
     for (int i = 0; i < round.rules.numPlayers; i++) {
       final tricksTaken = round.previousTricks.where((t) => t.winner == i).length;
-      messages.add("Score: ${teamScore(i)}\nBid ${round.players[i].bid}, Took $tricksTaken");
+      final teamTricksTaken = round.previousTricks.where((t) => t.winner == team(i)).length + round.previousTricks.where((t) => t.winner == team(i) + 2).length;
+      messages.add("Score: ${teamScore(i)}\nTricks: $teamTricksTaken/${teamBid(i)} ($tricksTaken/${round.players[i].bid})");
     }
     return messages;
   }

@@ -135,7 +135,12 @@ class PlayingCard {
   }
 
   String symbolString() {
-    return this.rank.asciiChar + this.suit.symbolChar;
+    if (this.rank.asciiChar == 'T') {
+      return "10" + this.suit.symbolChar;
+    }
+    else {
+      return this.rank.asciiChar + this.suit.symbolChar;
+    }
   }
 
   static PlayingCard cardFromString(String s) {

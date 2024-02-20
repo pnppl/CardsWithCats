@@ -559,7 +559,7 @@ class TrickCards extends StatelessWidget {
 
     cardWidgets.add(TweenAnimationBuilder(
         tween: Tween(begin: 0.0, end: 1.0),
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 100),
         onEnd: onTrickCardAnimationFinished,
         builder: (BuildContext context, double frac, Widget? child) {
           final animRect = Rect.lerp(startRect, endRect, frac)!;
@@ -580,7 +580,7 @@ class TrickCards extends StatelessWidget {
     // transition logic more complex.
     return TweenAnimationBuilder(
         tween: Tween(begin: -3.0, end: 1.0),
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 500),
         onEnd: onTrickToWinnerAnimationFinished,
         builder: (BuildContext context, double t, Widget? child) {
           final List<Widget> cardWidgets = [];
